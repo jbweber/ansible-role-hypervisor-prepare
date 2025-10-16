@@ -110,7 +110,12 @@
 
 - name: Display nested virtualization status
   ansible.builtin.debug:
-    msg: "Nested virtualization status: {{ nested_status_intel.stdout if cpu_vendor == 'intel' else nested_status_amd.stdout if cpu_vendor == 'amd' else 'Unknown' }}"
+    msg: >-
+      Nested virtualization status: {{ nested_status_intel.stdout if cpu_vendor == 'intel'
+      else nested_status_amd.stdout if cpu_vendor == 'amd' else 'Unknown' }}
   when:
     - hypervisor_prepare_enable_nested_virtualization | bool
-    - (nested_status_intel is defined and nested_status_intel.rc == 0) or (nested_status_amd is defined and nested_status_amd.rc == 0)
+    - >-
+      (nested_status_intel is defined and not nested_status_intel.skipped | default(false)
+      and nested_status_intel.rc == 0) or (nested_status_amd is defined
+      and not nested_status_amd.skipped | default(false) and nested_status_amd.rc == 0)
