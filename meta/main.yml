@@ -1,0 +1,24 @@
+---
+galaxy_info:
+  role_name: hypervisor_prepare
+  author: jweber
+  description: Prepares a system for use as a hypervisor host
+  license: MIT
+  min_ansible_version: '2.9'
+
+  platforms:
+    - name: Fedora
+      versions:
+        - all
+    - name: EL
+      versions:
+        - '8'
+        - '9'
+
+  galaxy_tags:
+    - hypervisor
+    - virtualization
+    - system
+    - preparation
+
+dependencies: []
